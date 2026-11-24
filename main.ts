@@ -1,11 +1,12 @@
-// Paper bot for the Pump.fun Replay Sprint (agent-fun/replay/v2).
-// The grader runs `node /bot/main.ts`: hello arrives first, then one batch per
-// slot, and this process answers each batch with its orders. The strategy is in
-// strategy.ts; the protocol shim is vendored in vendor/makefun-bot.ts.
+// Paper bot for the Pump.fun Paper Sprint: Any Bot Can Win (agent-fun/replay/v2).
+// The grader runs `node /bot/main.ts`: a hello first, then one batch per slot,
+// and this process answers every batch with its orders. All trading decisions
+// live in strategy.ts; the protocol shim is vendored in vendor/makefun-bot.ts.
 
 import { runBot } from "./vendor/makefun-bot.ts";
 import { createStrategy, DEFAULT_PARAMS } from "./strategy.ts";
 
-// Revision: keep the entrypoint a thin shell so every trading decision stays
-// in strategy.ts, where the transcript checks can follow it.
-await runBot(createStrategy(DEFAULT_PARAMS));
+// The entrypoint stays a thin shell on purpose: every trading decision lives
+// in strategy.ts, so the whole strategy is one readable, testable unit.
+const bot = createStrategy(DEFAULT_PARAMS);
+await runBot(bot);
